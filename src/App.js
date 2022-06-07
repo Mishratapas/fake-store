@@ -9,6 +9,7 @@ import {
   Cart,
   SignUp,
   ProtectedRoute,
+  Navbar,
 } from "./components";
 import "./App.css";
 import LogIn2 from "./components/Validation/LogIn2";
@@ -28,7 +29,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route exact path="/products" element={<Products />} />
+        <Route
+          exact
+          path="/products"
+          element={
+            <ProtectedRoute>
+              <Products />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/products/:id" element={<ProductInfo />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />

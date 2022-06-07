@@ -9,7 +9,7 @@ export {default as ProductInfo} from "./Content/ProductInfo";
 export {default as Contact} from "./Button/Contact";
 export {default as Cart} from "./Cart/Cart";
 
-export {default as Login} from "./Validation/Login";
+export {default as LogIn2} from "./Validation/LogIn2";
 export {default as SignUp} from "./Validation/SignUp";
 
 export {default as ButtonsContent} from "./ButtonsContent";

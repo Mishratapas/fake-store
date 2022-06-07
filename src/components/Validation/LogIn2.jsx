@@ -9,7 +9,7 @@ const LogIn2 = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {logIn} = useUserAuth();
+  const {logIn, GoogleSignIn} = useUserAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +19,16 @@ const LogIn2 = () => {
       navigate("/home");
     } catch (err) {
       setError(err.message);
+    }
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await GoogleSignIn();
+      navigate("/home");
+    } catch (err) {
+      console.log(err.message);
     }
   };
   return (
@@ -52,7 +62,11 @@ const LogIn2 = () => {
             </div>
           </Form>
           <div className="d-flex justify-content-center mt-3">
-            <GoogleButton className="g-btn" type="dark" />
+            <GoogleButton
+              className="g-btn"
+              type="dark"
+              onClick={handleGoogleSignIn}
+            />
           </div>
         </div>
         <div className="mt-3 text-center">

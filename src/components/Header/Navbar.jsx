@@ -1,18 +1,32 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-import {GoSignIn} from "react-icons/go";
-import {FaRegistered} from "react-icons/fa";
+import {FaSignOutAlt} from "react-icons/fa";
 import {BsFillCartCheckFill} from "react-icons/bs";
 import {useSelector} from "react-redux";
+import {useUserAuth} from "../../context/UserAuthContext";
 
 const Navbar = () => {
   const {cartTotalQuantity} = useSelector((state) => state.cart);
+  const {user, logOut} = useUserAuth();
+  const navigate = useNavigate();
+  const handlelogOut = async (e) => {
+    e.preventDefault();
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-primary bg-opacity-75 py-3 shadow-sm">
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bold fs-4" to="/">
+        <Link className="navbar-brand fw-bold fs-4" to="/home">
           Fake Store
         </Link>
+        <div>
+          <h6>Hello, {user && user.email}</h6>
+        </div>
         <button
           className="navbar-toggler"
           type="button"
@@ -49,14 +63,13 @@ const Navbar = () => {
           </ul>
           <div className="buttons">
             <button className="btn">
-              <Link to="/login" className="btn btn-outline-dark">
-                <GoSignIn />
-                Login
-              </Link>
-              <Link to="/register" className="btn btn-outline-dark ms-2">
-                <FaRegistered />
-                Register
-              </Link>
+              <button
+                className="btn btn-outline-dark ms-2"
+                onClick={handlelogOut}
+              >
+                <FaSignOutAlt size={25} />
+                Sign Out
+              </button>
               <Link to="/cart" className="btn btn-outline-dark ms-2">
                 <BsFillCartCheckFill />
                 Cart ({cartTotalQuantity})
